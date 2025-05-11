@@ -1,4 +1,5 @@
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
@@ -35,6 +36,13 @@ public class GameTest {
         assertThat(game.getScore(), is(20));
     }
 
-
+    @Test
+    public void oneSpare() {
+        game.roll(5);
+        game.roll(5); // spare
+        game.roll(3);
+        rollMany(17, 0);
+        assertThat(game.getScore(), is(16));
+    }
 
 }
