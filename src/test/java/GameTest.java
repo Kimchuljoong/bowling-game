@@ -24,6 +24,11 @@ public class GameTest {
             game.roll(pins);
     }
 
+    private void rollSpare() {
+        game.roll(5);
+        game.roll(5); // spare
+    }
+
     @Test
     public void gutterGame() {
         rollMany(0, 20);
@@ -38,11 +43,30 @@ public class GameTest {
 
     @Test
     public void oneSpare() {
-        game.roll(5);
-        game.roll(5); // spare
+        rollSpare();
         game.roll(3);
         rollMany(17, 0);
         assertThat(game.getScore(), is(16));
     }
 
+    @Test
+    public void oneStrike() {
+        rollStrike();
+        game.roll(5);
+        game.roll(3);
+        rollMany(16, 0);
+        assertThat(game.getScore(), is(26));
+    }
+
+    private void rollStrike() {
+        game.roll(10);
+    }
+
+    @Test
+    public void perfectGame() {
+        rollMany(10, 10);
+        game.roll(10);
+        game.roll(10);
+        assertThat(game.getScore(), is(300));
+    }
 }
